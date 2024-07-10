@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
-    public string _name;
-    public int _hp;
-    public int _attackDamage = 10;
+    public EnemyData _enemyData;
     private float _attackTime;
 
     [SerializeField] private TMP_Text HpText;
@@ -15,33 +13,23 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _enemyData.SetData();
     }
 
     // Update is called once per frame
     void Update()
     {
-        HpText.text = "HP:" + _hp;
+        HpText.text = "HP:" + _enemyData._hp;
     }
 
     public IEnumerator EnemyTurn()
     {
         Debug.Log("ìGÇÃçUåÇÅI");
-        GameManager.Instance.nowPlayerList[0].hitDamage(_attackDamage);
-        //TurnManager.Instance.currentState = TurnManager.TurnState.PlayerTurn;
+        _enemyData.Attack(GameManager.Instance.nowPlayerList[0]._playerData);
         yield return new WaitForSeconds(_attackTime);
     }
     public void Attack()
     {
 
-    }
-
-    public void hitDamage(int Damage)
-    {
-        _hp -= Damage;
-        if (_hp <= 0)
-        {
-            Debug.Log("èüóòÅI");
-        }
     }
 }

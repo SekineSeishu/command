@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 863841936313837052}
   - component: {fileID: 8492627395673592983}
   m_Layer: 5
-  m_Name: Item1Button
+  m_Name: TargetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -3363169488082422706}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: item
+      - m_Target: {fileID: 3789619837505509037}
+        m_TargetAssemblyTypeName: TargetButton, Assembly-CSharp
+        m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5579814060492429707}
-  - component: {fileID: -3363169488082422706}
+  - component: {fileID: 3789619837505509037}
   m_Layer: 0
   m_Name: EnemyNode
   m_TagString: Untagged
@@ -304,7 +304,7 @@ RectTransform:
   m_AnchoredPosition: {x: 272.93134, y: -57.22355}
   m_SizeDelta: {x: 545.8627, y: 114.4471}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-3363169488082422706
+--- !u!114 &3789619837505509037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -313,9 +313,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5371987488645415067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f7fd187c387624797a46a6574a71c8, type: 3}
+  m_Script: {fileID: 11500000, guid: fbf444235e25fec42841af563a1687f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 0}
-  _itemName: 
-  _text: {fileID: 5471843091333918874}
+  _enemy: {fileID: 0}
+  _nameText: {fileID: 5471843091333918874}
+  player: {fileID: 0}
