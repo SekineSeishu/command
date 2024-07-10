@@ -317,5 +317,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _item: {fileID: 0}
-  _itemName: 
-  _text: {fileID: 5471843091333918874}
+  _nameText: {fileID: 5471843091333918874}

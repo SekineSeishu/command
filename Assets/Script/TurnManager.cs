@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
-    public PlayerManager Player;
-    public EnemyManager Enemy;
-
+    private PlayerManager _player;
+    private EnemyManager _enemy;
     private void Awake()
     {
         Instance = this;
@@ -46,14 +46,16 @@ public class TurnManager : MonoBehaviour
                     Debug.Log("プレイヤーのターン");
                     foreach (var player in GameManager.Instance.nowPlayerList)
                     {
-                        yield return StartCoroutine(player.PlayerTurnStart());
+                        _player = player;
+                        yield return StartCoroutine(_player.PlayerTurnStart());
                     }
                     currentState = TurnState.CommandEffect;
                     break;
 
                 case TurnState.CommandEffect:
                     Debug.Log("コマンド効果");
-                    yield return StartCoroutine(Player.CommandEffect());
+                    yield return StartCoroutine(_player.CommandEffect());
+                    _player = null;
                     currentState = TurnState.EnemyTurn;
                     break;
                 case TurnState.EnemyTurn:
