@@ -56,6 +56,11 @@ public class PlayerData : ScriptableObject
             {
                 Debug.Log("‰ñ”ð‚µ‚½");
             }
+            else
+            {
+                _hp -= Damage;
+
+            }
             _skillCount--;
         }
         else

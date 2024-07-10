@@ -2472,7 +2472,7 @@ MonoBehaviour:
   _playerData: {fileID: 11400000, guid: 8944b1b57fdd7a848aa1afec297dd286, type: 2}
   _gm: {fileID: 488864605}
   _commandMenuUI: {fileID: 1355023827}
-  _itemCommandUI: {fileID: 161129617}
+  _selectCommandUI: {fileID: 161129617}
   _contract: {fileID: 1631954553}
   _targetSlotPrefab: {fileID: 5371987488645415067, guid: 899ef5d274ee34344ace3a606da57bfa, type: 3}
   _itemSlotPrefab: {fileID: 5371987488645415067, guid: 58bea7824828af248a319f386e1e0532, type: 3}

@@ -19,7 +19,7 @@ public class EnemyData : ScriptableObject
     public void Attack(PlayerData player)
     {
         player.hitDamage(_attackDamage);
-    }
+    } 
 
     public void hitDamage(int Damage)
     {

@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private GameManager _gm;
     [SerializeField] private GameObject _commandMenuUI;
-    [SerializeField] private GameObject _itemCommandUI;
+    [SerializeField] private GameObject _selectCommandUI;
     [SerializeField] private GameObject _contract;
     [SerializeField] private GameObject _targetSlotPrefab;
     [SerializeField] private GameObject _itemSlotPrefab;
@@ -93,7 +93,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("ボタンを押しました");
         SetTargetUI();
         _commandMenuUI.SetActive(false);
-        _itemCommandUI.SetActive(true);
+        _selectCommandUI.SetActive(true);
     }
 
     public void SelectTarget(string targetName)
@@ -101,7 +101,7 @@ public class PlayerManager : MonoBehaviour
         _commandSelect = true;
         _selectCommandName = "Attack";
         _targetName = targetName;
-        _itemCommandUI.SetActive(false);
+        _selectCommandUI.SetActive(false);
     }
 
     public void SkillButton()
@@ -121,14 +121,14 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("ボタンを押しました");
         SetItemUI();
         _commandMenuUI.SetActive(false);
-        _itemCommandUI.SetActive(true);
+        _selectCommandUI.SetActive(true);
     }
     public void SelectItem(string itemName)
     {
         _commandSelect = true;
         _selectCommandName = "Item";
         _selectItemName = itemName;
-        _itemCommandUI.SetActive(false);
+        _selectCommandUI.SetActive(false);
     }
 
     public void Back()
@@ -137,7 +137,7 @@ public class PlayerManager : MonoBehaviour
         _commandSelect = false;
         _selectCommandName = null;
         _commandMenuUI.SetActive(true);
-        _itemCommandUI.SetActive(false);
+        _selectCommandUI.SetActive(false);
     }
 
     public void SetTargetUI()

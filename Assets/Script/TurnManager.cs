@@ -44,7 +44,10 @@ public class TurnManager : MonoBehaviour
             {
                 case TurnState.PlayerTurn:
                     Debug.Log("プレイヤーのターン");
-                    yield return StartCoroutine(Player.PlayerTurnStart());
+                    foreach (var player in GameManager.Instance.nowPlayerList)
+                    {
+                        yield return StartCoroutine(player.PlayerTurnStart());
+                    }
                     currentState = TurnState.CommandEffect;
                     break;
 
@@ -55,7 +58,10 @@ public class TurnManager : MonoBehaviour
                     break;
                 case TurnState.EnemyTurn:
                     Debug.Log("敵のターン");
-                    yield return StartCoroutine(Enemy.EnemyTurn());
+                    foreach (var enemy in GameManager.Instance.nowEnemyList)
+                    {
+                        yield return StartCoroutine(enemy.EnemyTurn());
+                    }
                     currentState = TurnState.PlayerTurn;
                     break;
             }

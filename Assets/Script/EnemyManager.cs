@@ -25,11 +25,14 @@ public class EnemyManager : MonoBehaviour
     public IEnumerator EnemyTurn()
     {
         Debug.Log("“G‚ÌUŒ‚I");
-        _enemyData.Attack(GameManager.Instance.nowPlayerList[0]._playerData);
+        _enemyData.Attack(GameManager.Instance.nowPlayerList[GetIndex()]._playerData);
         yield return new WaitForSeconds(_attackTime);
     }
-    public void Attack()
-    {
 
+    private int GetIndex()
+    {
+        int index = Random.Range(0, GameManager.Instance.nowPlayerList.Count);
+        Debug.Log(index);
+        return index;
     }
 }
