@@ -7,7 +7,7 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
     public PlayerManager Player;
-    public Enemy Enemy;
+    public EnemyManager Enemy;
 
     private void Awake()
     {

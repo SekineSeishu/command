@@ -11,13 +11,16 @@ public class PlayerManager : MonoBehaviour
     public string _selectCommandName;
     public bool _commandSelect;
     private string _selectItemName;
+    private string _targetName;
+    public PlayerData _playerData;
 
-    [SerializeField] private PlayerCommandData CommandData;
-    [SerializeField] private GameObject CommandMenuUI;
-    [SerializeField] private GameObject ItemCommandUI;
-    [SerializeField] private GameObject Contract;
-    [SerializeField] private GameObject ItemSlotPrefab;
-    [SerializeField] private TMP_Text HpText;
+    [SerializeField] private GameManager _gm;
+    [SerializeField] private GameObject _commandMenuUI;
+    [SerializeField] private GameObject _itemCommandUI;
+    [SerializeField] private GameObject _contract;
+    [SerializeField] private GameObject _targetSlotPrefab;
+    [SerializeField] private GameObject _itemSlotPrefab;
+    [SerializeField] private TMP_Text _hpText;
 
     private void Awake()
     {
@@ -27,33 +30,32 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         _commandSelect = false;
-        CommandData.SetData();
+        _playerData.SetData();
     }
 
     // Update is called once per frame
     void Update()
     {
-        HpText.text = "HP:" + CommandData._hp;
+        _hpText.text = "HP:" + _playerData._hp;
     }
 
     public IEnumerator PlayerTurnStart()
     {
         _selectCommandName = null;
-        if (CommandData._skillEffect)
+        if (_playerData._skillEffect)
         {
-            if (CommandData._skillCount <= 0)
+            if (_playerData._skillCount <= 0)
             {
-                CommandData._skillEffect = false;
+                _playerData._skillEffect = false;
             }
         }
-        CommandMenuUI.SetActive(true);
+        _commandMenuUI.SetActive(true);
 
         while (!_commandSelect)
         {
             if (_commandSelect)
             {
                 _commandSelect = false;
-                //TurnManager.Instance.currentState = TurnManager.TurnState.CommandEffect;
                 yield return new WaitForSeconds(2); ;
             }
             yield return null;
@@ -65,44 +67,51 @@ public class PlayerManager : MonoBehaviour
         _effectTime = 0;
         if (_selectCommandName == "Attack")
         {
-            CommandData.Attack(GameManager.Instance.nowEnemyList[0]);
+            EnemyManager TargetEnemy = _gm.nowEnemyList.Find(enemy => enemy._enemyData._name == _targetName);
+            _playerData.Attack(TargetEnemy);
             Debug.Log("プレイヤーの攻撃！");
         }
         if (_selectCommandName == "Skill")
         {
-            CommandData.Skill();
+            _playerData.Skill();
             Debug.Log("プレイヤーはスキルを使った！");
         }
         if (_selectCommandName == "Item")
         {
-            CommandData.Item(_selectItemName);
+            _playerData.Item(_selectItemName);
             _selectItemName = null;
             Debug.Log("プレイヤーはアイテムを使った！");
         }
         _selectCommandName = null;
         _commandSelect = false;
         ClearSlot();
-        //TurnManager.Instance.currentState = TurnManager.TurnState.EnemyTurn;
         yield return new WaitForSeconds(2);
     }
 
     public void AttackButton()
     {
         Debug.Log("ボタンを押しました");
+        SetTargetUI();
+        _commandMenuUI.SetActive(false);
+        _itemCommandUI.SetActive(true);
+    }
+
+    public void SelectTarget(string targetName)
+    {
         _commandSelect = true;
         _selectCommandName = "Attack";
-        PlayerTurnStart();
-        CommandMenuUI.SetActive(false);
+        _targetName = targetName;
+        _itemCommandUI.SetActive(false);
     }
 
     public void SkillButton()
     {
         Debug.Log("ボタンを押しました");
-        if (CommandData._sp > 0)
+        if (_playerData._sp > 0)
         {
             _commandSelect = true;
             _selectCommandName = "Skill";
-            CommandMenuUI.SetActive(false);
+            _commandMenuUI.SetActive(false);
         }
         Debug.Log("spがありません");
     }
@@ -111,15 +120,15 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("ボタンを押しました");
         SetItemUI();
-        CommandMenuUI.SetActive(false);
-        ItemCommandUI.SetActive(true);
+        _commandMenuUI.SetActive(false);
+        _itemCommandUI.SetActive(true);
     }
     public void SelectItem(string itemName)
     {
         _commandSelect = true;
         _selectCommandName = "Item";
         _selectItemName = itemName;
-        ItemCommandUI.SetActive(false);
+        _itemCommandUI.SetActive(false);
     }
 
     public void Back()
@@ -127,61 +136,32 @@ public class PlayerManager : MonoBehaviour
         ClearSlot();
         _commandSelect = false;
         _selectCommandName = null;
-        CommandMenuUI.SetActive(true);
-        ItemCommandUI.SetActive(false);
+        _commandMenuUI.SetActive(true);
+        _itemCommandUI.SetActive(false);
     }
-    public void hitDamage(int Damage)
+
+    public void SetTargetUI()
     {
-        if (CommandData._skillEffect)
+        foreach (var enemy in _gm.nowEnemyList)
         {
-            if (Probability(80))
-            {
-                Debug.Log("回避した");
-            }
-            CommandData._skillCount--;
-        }
-        else
-        {
-            CommandData._hp -= Damage;
-
-        }
-        if (CommandData._hp <= 0)
-        {
-            Debug.Log("敗北！");
+            Debug.Log(enemy._enemyData._name);
+            GameObject targetSlot = Instantiate(_targetSlotPrefab, _contract.transform);
+            targetSlot.GetComponent<TargetButton>().Add(enemy._enemyData);
         }
     }
-
-    public static bool Probability(float fpercent)
-    {
-        float fProbabilityRate = UnityEngine.Random.value * 100.0f;
-
-        if (fProbabilityRate == 100.0f && fProbabilityRate == fpercent)
-        {
-            return true;
-        }
-        else if (fProbabilityRate < fpercent)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void SetItemUI()
     {
-        foreach(var item in CommandData._itemDatas)
+        foreach(var item in _playerData._itemDatas)
         {
             Debug.Log(item._name);
-            GameObject itemSlot = Instantiate(ItemSlotPrefab, Contract.transform);
-            itemSlot.GetComponent<ButtonManager>().Add(item);
+            GameObject itemSlot = Instantiate(_itemSlotPrefab, _contract.transform);
+            itemSlot.GetComponent<ItemButton>().Add(item);
         }
     }
 
     public void ClearSlot()
     {
-        foreach(Transform slot in Contract.transform)
+        foreach(Transform slot in _contract.transform)
         {
             GameObject.Destroy(slot.gameObject);
         }
