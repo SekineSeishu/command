@@ -508,6 +508,8 @@ MonoBehaviour:
   nowEnemyList:
   - {fileID: 1376432463}
   - {fileID: 728410615}
+  AllPlayer: {fileID: 411202766}
+  AllEnemy: {fileID: 1297567496}
 --- !u!114 &488864606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1706,7 +1708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1297567496}
   m_Layer: 0
-  m_Name: AllPlayer (1)
+  m_Name: AllEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
