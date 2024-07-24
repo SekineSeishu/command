@@ -90,7 +90,7 @@ public class PlayerManager : MonoBehaviour
 
     public void AttackButton()
     {
-        Debug.Log("ボタンを押しました");
+        Debug.Log("アタックボタンを押しました");
         SetTargetUI();
         _commandMenuUI.SetActive(false);
         _selectCommandUI.SetActive(true);
@@ -106,8 +106,8 @@ public class PlayerManager : MonoBehaviour
 
     public void SkillButton()
     {
-        Debug.Log("ボタンを押しました");
-        if (_playerData._sp > 0)
+        Debug.Log("スキルボタンを押しました");
+        if (_playerData._sp >= _playerData._decreaseSp)
         {
             _commandSelect = true;
             _selectCommandName = "Skill";
@@ -118,7 +118,7 @@ public class PlayerManager : MonoBehaviour
 
     public void ItemButton()
     {
-        Debug.Log("ボタンを押しました");
+        Debug.Log("アイテムボタンを押しました");
         SetItemUI();
         _commandMenuUI.SetActive(false);
         _selectCommandUI.SetActive(true);
@@ -133,6 +133,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Back()
     {
+        Debug.Log("戻るボタンを押しました");
         ClearSlot();
         _commandSelect = false;
         _selectCommandName = null;

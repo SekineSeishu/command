@@ -10,6 +10,7 @@ public class PlayerData : ScriptableObject
     public int _attackDamage;
     public int _defaultAttackDatamage;
     public int _sp;
+    public int _decreaseSp;
     public int _maxSp;
     public int _skillCount;
     public bool _skillEffect;
@@ -32,7 +33,7 @@ public class PlayerData : ScriptableObject
 
     public void Skill()
     {
-        _sp -= 10;
+        _sp -= _decreaseSp;
         _skillCount = 3;
         _skillEffect = true;
     }
