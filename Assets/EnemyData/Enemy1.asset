@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy1
   m_EditorClassIdentifier: 
   _name: Enemy1
-  _hp: 100
+  _hp: 0
   _maxHp: 100
   _attackDamage: 10
   _defaultAttackDatamage: 10

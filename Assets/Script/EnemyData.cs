@@ -20,13 +20,4 @@ public class EnemyData : ScriptableObject
     {
         player.hitDamage(_attackDamage);
     } 
-
-    public void hitDamage(int Damage)
-    {
-        _hp -= Damage;
-        if (_hp <= 0)
-        {
-            Debug.Log("Ÿ—˜I");
-        }
-    }
 }

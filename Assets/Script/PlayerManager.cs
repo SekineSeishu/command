@@ -163,7 +163,7 @@ public class PlayerManager : MonoBehaviour
     {
         foreach(Transform slot in _contract.transform)
         {
-            GameObject.Destroy(slot.gameObject);
+            Destroy(slot.gameObject);
         }
     }
 }

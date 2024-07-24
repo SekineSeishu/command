@@ -27,7 +27,7 @@ public class PlayerData : ScriptableObject
 
     public void Attack(EnemyManager enemy)
     {
-        enemy._enemyData.hitDamage(_attackDamage);
+        enemy.HitDamage(_attackDamage);
     }
 
     public void Skill()

@@ -44,6 +44,7 @@ public class TurnManager : MonoBehaviour
             {
                 case TurnState.PlayerTurn:
                     Debug.Log("プレイヤーのターン");
+                    GameManager.Instance.nowCharacterSerch();
                     foreach (var player in GameManager.Instance.nowPlayerList)
                     {
                         _player = player;
@@ -60,6 +61,7 @@ public class TurnManager : MonoBehaviour
                     break;
                 case TurnState.EnemyTurn:
                     Debug.Log("敵のターン");
+                    GameManager.Instance.nowCharacterSerch();
                     foreach (var enemy in GameManager.Instance.nowEnemyList)
                     {
                         yield return StartCoroutine(enemy.EnemyTurn());

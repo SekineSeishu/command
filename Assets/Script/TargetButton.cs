@@ -20,7 +20,6 @@ public class TargetButton : MonoBehaviour
 
     public void Attack()
     {
-        //PlayerManager PM = GetComponentInParent<PlayerManager>();
         player.SelectTarget(_name);
     }
 }

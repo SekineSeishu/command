@@ -22,6 +22,25 @@ public class EnemyManager : MonoBehaviour
         HpText.text = "HP:" + _enemyData._hp;
     }
 
+    //ダメージを受ける
+    public void HitDamage(int damage)
+    {
+        Debug.Log(_enemyData._name + ":" + damage + "受けた");
+        _enemyData._hp -= damage; ;
+        if (_enemyData._hp <= 0)
+        {
+            KnockDown();
+        }
+    }
+    //倒されたとき
+    public void KnockDown()
+    {
+        var enemy = gameObject.GetComponent<EnemyManager>();
+        GameManager.Instance.nowEnemyList.Remove(enemy);
+        Destroy(gameObject);
+        Debug.Log("勝利！");
+    }
+    //プレイヤーを攻撃（対象はランダム）
     public IEnumerator EnemyTurn()
     {
         Debug.Log("敵の攻撃！");
@@ -29,6 +48,7 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(_attackTime);
     }
 
+    //攻撃対象を選ぶ
     private int GetIndex()
     {
         int index = Random.Range(0, GameManager.Instance.nowPlayerList.Count);
